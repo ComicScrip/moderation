@@ -13,12 +13,12 @@ const searchBgImage = require('../assets/cocktail-beach3.jpg');
 
 export default function SearchBar({
   showFavorites,
-  setShowFavorite,
+  setShowFavorites,
   search,
   setSearch,
 }: {
   showFavorites: boolean;
-  setShowFavorite: (val: boolean) => void;
+  setShowFavorites: (val: boolean) => void;
   search: string;
   setSearch: (val: string) => void;
 }) {
@@ -30,18 +30,20 @@ export default function SearchBar({
         style={{ ...styles.searchBgImage }}
       >
         <View style={styles.controls}>
-          {/* TODO: make this input change search state */}
           <TextInput
             style={{ ...styles.searchInput, ...styles.shadow }}
             placeholder='Search for a cocktail'
+            value={search}
+            onChangeText={setSearch}
           />
-          {/* TODO: make this heart icon a button */}
-          <AntDesign
-            style={{ paddingTop: 10, opacity: showFavorites ? 1 : 0.6 }}
-            name={showFavorites ? 'heart' : 'hearto'}
-            size={50}
-            color={showFavorites ? 'orange' : 'gray'}
-          />
+          <TouchableOpacity onPress={() => setShowFavorites(!showFavorites)}>
+            <AntDesign
+              style={{ paddingTop: 10, opacity: showFavorites ? 1 : 0.6 }}
+              name={showFavorites ? 'heart' : 'hearto'}
+              size={50}
+              color={showFavorites ? 'orange' : 'gray'}
+            />
+          </TouchableOpacity>
         </View>
       </ImageBackground>
     </View>
