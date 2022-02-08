@@ -39,8 +39,7 @@ export default function FavoritesContextProvider({
 
   const storeData = async (key: string, value: any) => {
     try {
-      const jsonValue = JSON.stringify(value);
-      await AsyncStorage.setItem(key, jsonValue);
+      // convert value into json and save in async storage
     } catch (e) {
       console.error(e);
     }
@@ -48,8 +47,7 @@ export default function FavoritesContextProvider({
 
   const getStoredData = async (key: string, defaultValue: any = {}) => {
     try {
-      const json = await AsyncStorage.getItem(key);
-      if (json) return JSON.parse(json);
+      // TODO: get json from async storage
       return defaultValue;
     } catch (e) {
       console.error(e);

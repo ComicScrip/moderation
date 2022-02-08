@@ -30,23 +30,18 @@ export default function SearchBar({
         style={{ ...styles.searchBgImage }}
       >
         <View style={styles.controls}>
+          {/* TODO: make this input change search state */}
           <TextInput
             style={{ ...styles.searchInput, ...styles.shadow }}
-            onChangeText={(val) => {
-              setSearch(val);
-              setShowFavorite(false);
-            }}
-            value={search}
             placeholder='Search for a cocktail'
           />
-          <TouchableOpacity onPress={() => setShowFavorite(!showFavorites)}>
-            <AntDesign
-              style={{ paddingTop: 10, opacity: showFavorites ? 1 : 0.6 }}
-              name={showFavorites ? 'heart' : 'hearto'}
-              size={50}
-              color={showFavorites ? 'orange' : 'gray'}
-            />
-          </TouchableOpacity>
+          {/* TODO: make this heart icon a button */}
+          <AntDesign
+            style={{ paddingTop: 10, opacity: showFavorites ? 1 : 0.6 }}
+            name={showFavorites ? 'heart' : 'hearto'}
+            size={50}
+            color={showFavorites ? 'orange' : 'gray'}
+          />
         </View>
       </ImageBackground>
     </View>

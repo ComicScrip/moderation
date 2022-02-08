@@ -4,6 +4,7 @@ import {
   FlatList,
   StyleSheet,
   SafeAreaView,
+  Text,
   TouchableOpacity,
 } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -20,87 +21,9 @@ export default function SearchCocktails({
 }: {
   navigation: StackNavigationProp<RootStackParamList>;
 }) {
-  const { isFavorite, toggleFavorite, savedFavorites } =
-    useContext<FavoritesContextValue>(FavoritesContext);
-  const [cocktails, setCocktails] = useState<Drink[]>([]);
-  const [search, setSearch] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [showFavorites, setShowFavorite] = useState(false);
-
-  const loadCocktails = useCallback(
-    (onComplete = setCocktails) => {
-      setIsLoading(true);
-      const { cancel, request } = getCocktails({ name: search });
-      request
-        .then((cocktails) => cocktails && onComplete(cocktails))
-        .finally(() => {
-          setIsLoading(false);
-        });
-      return { request, cancel };
-    },
-    [search]
-  );
-
-  const loadMoreCocktails = useCallback(() => {
-    if (!search && !isLoading) {
-      loadCocktails((cocktails: Drink[] | void) =>
-        setCocktails((prev) => _.uniqBy([...prev, ...(cocktails || [])], 'id'))
-      );
-    }
-  }, [search]);
-
-  useEffect(() => {
-    const { cancel } = loadCocktails();
-    return () => {
-      cancel();
-    };
-  }, [search]);
-
-  const onCocktailPress = (id: string) => {
-    navigation.navigate('Cocktail details', {
-      cocktailId: id,
-    });
-  };
-
   return (
     <SafeAreaView style={styles.container}>
-      <FlatList
-        ListHeaderComponent={
-          <SearchBar
-            setShowFavorite={setShowFavorite}
-            showFavorites={showFavorites}
-            search={search}
-            setSearch={setSearch}
-          />
-        }
-        refreshing={isLoading}
-        onRefresh={showFavorites ? null : loadCocktails}
-        data={showFavorites ? savedFavorites : cocktails}
-        ListEmptyComponent={
-          isLoading ? null : (
-            <NoSearchResults
-              setShowFavorite={setShowFavorite}
-              setSearch={setSearch}
-              showFavorites={showFavorites}
-            />
-          )
-        }
-        renderItem={({ item }: { item: Drink }) => (
-          <TouchableOpacity onPress={() => onCocktailPress(item.id)}>
-            <DrinkListElement
-              drink={item}
-              toggleFavorite={() => toggleFavorite(item)}
-              isFavorite={isFavorite(item.id)}
-            />
-          </TouchableOpacity>
-        )}
-        keyExtractor={(item) => item.id}
-        style={styles.cocktailListContainer}
-        contentContainerStyle={{ paddingBottom: 30 }}
-        onEndReached={loadMoreCocktails}
-        onEndReachedThreshold={0.3}
-        initialNumToRender={10}
-      />
+      <Text>Main screen</Text>
     </SafeAreaView>
   );
 }

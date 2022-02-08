@@ -23,10 +23,13 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.comicscrip.moderation"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "Buvez avec modération ;)",
+    "githubUrl": "https://github.com/ComicScrip/moderation"
   }
 }
