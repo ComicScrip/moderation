@@ -4,14 +4,12 @@ import {
   FlatList,
   StyleSheet,
   SafeAreaView,
-  Text,
   TouchableOpacity,
 } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import _ from 'lodash';
 import { Drink, RootStackParamList } from '../types';
 import { FavoritesContext, FavoritesContextValue } from '../contexts/favorites';
-import DrinkListElement from '../components/CocktailListElement';
 import { getCocktails } from '../services/cocktails';
 import SearchBar from '../components/SearchBar';
 import NoSearchResults from '../components/NoSearchResults';
@@ -71,6 +69,15 @@ export default function SearchCocktails({ navigation }: SearchCocktailsProps) {
           <SearchBar
             {...{ search, setSearch, showFavorites, setShowFavorites }}
           />
+        }
+        ListEmptyComponent={
+          loading ? null : (
+            <NoSearchResults
+              setShowFavorites={setShowFavorites}
+              setSearch={setSearch}
+              showFavorites={showFavorites}
+            />
+          )
         }
         data={showFavorites ? savedFavorites : drinks}
         renderItem={({ item }) => (

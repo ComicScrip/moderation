@@ -7,11 +7,11 @@ const cocktailGif2 = require('../assets/cocktail-movie2.gif');
 export default function NoSearchResults({
   showFavorites,
   setSearch,
-  setShowFavorite,
+  setShowFavorites,
 }: {
   showFavorites: boolean;
   setSearch: (val: string) => void;
-  setShowFavorite: (val: boolean) => void;
+  setShowFavorites: (val: boolean) => void;
 }) {
   return (
     <View style={styles.noDataContainer}>
