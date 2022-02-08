@@ -1,20 +1,36 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { StatusBar } from 'react-native';
 
-export default function App() {
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import CocktailsDetails from './screens/CocktailDetails';
+import SearchCocktails from './screens/SearchCocktails';
+import FavoritesContextProvider from './contexts/favorites';
+
+const Stack = createNativeStackNavigator();
+
+function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <StatusBar barStyle='dark-content' />
+      <NavigationContainer>
+        <FavoritesContextProvider>
+          <Stack.Navigator
+            screenOptions={{
+              headerShown: false,
+            }}
+          >
+            <Stack.Screen name='Cocktails' component={SearchCocktails} />
+            <Stack.Screen
+              name='Cocktail details'
+              options={{ headerShown: true }}
+              component={CocktailsDetails}
+            />
+          </Stack.Navigator>
+        </FavoritesContextProvider>
+      </NavigationContainer>
+    </>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
