@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from 'react-native';
+import { DeviceMotion } from 'expo-sensors';
 import { StackNavigationProp } from '@react-navigation/stack';
 import _ from 'lodash';
 import { Drink, RootStackParamList } from '../types';
@@ -55,6 +56,35 @@ export default function SearchCocktails({ navigation }: SearchCocktailsProps) {
       cancel();
     };
   }, [search]);
+
+  useEffect(() => {
+    const fastMovesRequired = 10;
+    const threshold = 10;
+    const resetDelay = 3000;
+    let passedThresholdTimes = 0;
+    let lastTimePassedThrehold = Date.now();
+    let lastLoad = Date.now();
+
+    DeviceMotion.addListener(({ acceleration }) => {
+      const passedThreshold =
+        Math.abs(acceleration?.z || 0) > threshold ||
+        Math.abs(acceleration?.x || 0) > threshold ||
+        Math.abs(acceleration?.y || 0) > threshold;
+      if (passedThreshold) {
+        const now = Date.now();
+        passedThresholdTimes++;
+        if (now - lastTimePassedThrehold > resetDelay) passedThresholdTimes = 1;
+        lastTimePassedThrehold = now;
+        if (!loading && passedThresholdTimes === fastMovesRequired) {
+          if (now - lastLoad > resetDelay) {
+            lastLoad = now;
+            loadCocktails();
+          }
+          passedThresholdTimes = 0;
+        }
+      }
+    });
+  }, []);
 
   const onPressDrink = (cocktailId: string) => {
     navigation.navigate('Cocktail details', { cocktailId });

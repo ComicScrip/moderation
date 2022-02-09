@@ -24,7 +24,7 @@ export default function NoSearchResults({
           </Text>
           <Button
             onPress={() => {
-              setShowFavorite(false);
+              setShowFavorites(false);
               setSearch('');
             }}
             title='See random cocktails'
