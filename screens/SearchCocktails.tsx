@@ -10,7 +10,7 @@ import { DeviceMotion } from 'expo-sensors';
 import { StackNavigationProp } from '@react-navigation/stack';
 import _ from 'lodash';
 import { Drink, RootStackParamList } from '../types';
-import { FavoritesContext, FavoritesContextValue } from '../contexts/favorites';
+import { FavoritesContext } from '../contexts/favorites';
 import { getCocktails } from '../services/cocktails';
 import SearchBar from '../components/SearchBar';
 import NoSearchResults from '../components/NoSearchResults';
