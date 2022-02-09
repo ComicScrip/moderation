@@ -13,12 +13,12 @@ const searchBgImage = require('../assets/cocktail-beach3.jpg');
 
 export default function SearchBar({
   showFavorites,
-  setShowFavorite,
+  setShowFavorites,
   search,
   setSearch,
 }: {
   showFavorites: boolean;
-  setShowFavorite: (val: boolean) => void;
+  setShowFavorites: (val: boolean) => void;
   search: string;
   setSearch: (val: string) => void;
 }) {
